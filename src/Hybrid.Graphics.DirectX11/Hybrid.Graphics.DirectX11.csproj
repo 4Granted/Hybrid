@@ -5,6 +5,10 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <PackageProjectUrl>https://github.com/4Granted/Hybrid</PackageProjectUrl>
+    <Title>Hybrid.Graphics.DirectX11</Title>
+    <Authors>Fielding Baran</Authors>
+    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
   </PropertyGroup>
 
   <ItemGroup>
@@ -13,7 +17,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Hybrid.Graphics.DirectX\Hybrid.Graphics.DirectX.csproj" />
     <ProjectReference Include="..\Hybrid.Graphics.Native\Hybrid.Graphics.Native.csproj" />
   </ItemGroup>
 

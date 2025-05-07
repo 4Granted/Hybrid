@@ -22,12 +22,13 @@ namespace Hybrid.Numerics;
 /// to implement size properties.
 /// </summary>
 /// <typeparam name="TSelf">The size type.</typeparam>
-public interface ISize<TSelf> : INumeric<TSelf>,
+public interface ISize<TSelf, TNumber> : INumeric<TSelf>,
     IAdditionOperators<TSelf, TSelf, TSelf>,
     ISubtractionOperators<TSelf, TSelf, TSelf>,
     IDivisionOperators<TSelf, TSelf, TSelf>,
     IMultiplyOperators<TSelf, TSelf, TSelf>
-    where TSelf : ISize<TSelf>
+    where TSelf : ISize<TSelf, TNumber>
+    where TNumber : INumber<TNumber>
 {
     /// <summary>
     /// Adds the <paramref name="right"/> size to the <paramref name="left"/> size.
@@ -43,7 +44,7 @@ public interface ISize<TSelf> : INumeric<TSelf>,
     /// <param name="left">The left-hand size.</param>
     /// <param name="right">The right-hand number.</param>
     /// <returns>The sum of the size and number.</returns>
-    public static abstract TSelf Add(ref readonly TSelf left, float right);
+    public static abstract TSelf Add(ref readonly TSelf left, TNumber right);
 
     /// <summary>
     /// Subtracts the <paramref name="right"/> size from the <paramref name="left"/> size.
@@ -59,7 +60,7 @@ public interface ISize<TSelf> : INumeric<TSelf>,
     /// <param name="left">The left-hand size.</param>
     /// <param name="right">The right-hand number.</param>
     /// <returns>The difference of the size and number.</returns>
-    public static abstract TSelf Subtract(ref readonly TSelf left, float right);
+    public static abstract TSelf Subtract(ref readonly TSelf left, TNumber right);
 
     /// <summary>
     /// Divides the <paramref name="left"/> size by the <paramref name="right"/> size.
@@ -75,7 +76,7 @@ public interface ISize<TSelf> : INumeric<TSelf>,
     /// <param name="left">The left-hand size.</param>
     /// <param name="right">The right-hand number.</param>
     /// <returns>The quotient of the size and number.</returns>
-    public static abstract TSelf Divide(ref readonly TSelf left, float right);
+    public static abstract TSelf Divide(ref readonly TSelf left, TNumber right);
 
     /// <summary>
     /// Multiplies the <paramref name="left"/> size by the <paramref name="right"/> size.
@@ -91,5 +92,5 @@ public interface ISize<TSelf> : INumeric<TSelf>,
     /// <param name="left">The left-hand size.</param>
     /// <param name="right">The right-hand number.</param>
     /// <returns>The product of the size and number.</returns>
-    public static abstract TSelf Multiply(ref readonly TSelf left, float right);
+    public static abstract TSelf Multiply(ref readonly TSelf left, TNumber right);
 }

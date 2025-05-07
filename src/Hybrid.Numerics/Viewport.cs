@@ -163,6 +163,14 @@ public struct Viewport : INumeric<Viewport>
     /// </summary>
     /// <param name="viewport">The viewport to convert.</param>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static implicit operator RectangleF(Viewport viewport)
+        => new(viewport.X, viewport.Y, viewport.Width, viewport.Height);
+
+    /// <summary>
+    /// Implicitly converts a viewport to a rectangle.
+    /// </summary>
+    /// <param name="viewport">The viewport to convert.</param>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static implicit operator Rectangle(Viewport viewport)
         => new(viewport.X, viewport.Y, viewport.Width, viewport.Height);
 }

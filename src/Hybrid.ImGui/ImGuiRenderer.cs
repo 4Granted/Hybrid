@@ -361,9 +361,9 @@ public sealed class ImGuiRenderer : DeviceResource, IImGuiRenderer
                     commandList.SetDescriptorSet(0, descriptorSet);
 
                     commandList.SetScissor(new Rectangle(
-                        imGuiCommand.ClipRect.X, imGuiCommand.ClipRect.Y,
-                        imGuiCommand.ClipRect.Z - imGuiCommand.ClipRect.X,
-                        imGuiCommand.ClipRect.W - imGuiCommand.ClipRect.Y));
+                        (int)imGuiCommand.ClipRect.X, (int)imGuiCommand.ClipRect.Y,
+                        (int)(imGuiCommand.ClipRect.Z - imGuiCommand.ClipRect.X),
+                        (int)(imGuiCommand.ClipRect.W - imGuiCommand.ClipRect.Y)));
 
                     commandList.DrawIndexed(
                         indexCount: (int)imGuiCommand.ElemCount,

@@ -285,19 +285,17 @@ internal sealed class Dx11CommandList : Dx11DeviceResource, ICommandListImpl
         {
             Min = new NativePoint
             {
-                X = (int)bounds.X,
-                Y = (int)bounds.Y,
+                X = bounds.X,
+                Y = bounds.Y,
             },
             Max = new NativePoint
             {
-                X = (int)(bounds.X + bounds.Width),
-                Y = (int)(bounds.Y + bounds.Height),
+                X = bounds.X + bounds.Width,
+                Y = bounds.Y + bounds.Height,
             },
         };
 
         flags |= CommandListFlags.ScissorsChanged;
-
-        //NativeDeferredContext.RSSetScissorRects(1, ref dxScissor);
     }
 
     public unsafe void ClearRenderTarget(ITextureViewImpl renderTarget, Color color)

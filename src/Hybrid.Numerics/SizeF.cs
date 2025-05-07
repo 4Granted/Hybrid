@@ -22,11 +22,11 @@ namespace Hybrid.Numerics;
 
 /// <summary>
 /// Represents a size with two components; width and height.
-/// The size is backed by two 32-bit integers.
+/// The size is backed by two 32-bit floating point numbers.
 /// </summary>
 [StructLayout(LayoutKind.Sequential)]
 [DebuggerDisplay("{ToString()}")]
-public struct Size : ISize<Size, int>
+public struct SizeF : ISize<SizeF, float>
 {
     /// <summary>
     /// The size of the size in bytes.
@@ -36,44 +36,44 @@ public struct Size : ISize<Size, int>
     /// <summary>
     /// A size with both width and height set to zero.
     /// </summary>
-    public static readonly Size Zero = new(0);
+    public static readonly SizeF Zero = new(0f);
 
     /// <summary>
     /// A size with both width and height set to one.
     /// </summary>
-    public static readonly Size One = new(1);
+    public static readonly SizeF One = new(1f);
 
     /// <summary>
     /// The width of the size.
     /// </summary>
-    public int Width;
+    public float Width;
 
     /// <summary>
     /// The height of the size.
     /// </summary>
-    public int Height;
+    public float Height;
 
     /// <summary>
     /// Constructs a size.
     /// </summary>
     /// <param name="width">The width of the size.</param>
     /// <param name="height">The height of the size.</param>
-    public Size(int width, int height) => (Width, Height) = (width, height);
+    public SizeF(float width, float height) => (Width, Height) = (width, height);
 
     /// <summary>
     /// Constructs a size with a single value for both width and height.
     /// </summary>
     /// <param name="value">The value of both width and height.</param>
-    public Size(int value) => (Width, Height) = (value, value);
+    public SizeF(float value) => (Width, Height) = (value, value);
 
     /// <inheritdoc/>
-    public readonly bool Equals(Size other)
+    public readonly bool Equals(SizeF other)
         => other.Width == Width
         && other.Height == Height;
 
     /// <inheritdoc/>
     public readonly override bool Equals([NotNullWhen(true)] object? obj)
-        => obj is Size other && Equals(other);
+        => obj is SizeF other && Equals(other);
 
     /// <inheritdoc/>
     public readonly override int GetHashCode() => HashCode.Combine(Width, Height);
@@ -83,86 +83,86 @@ public struct Size : ISize<Size, int>
 
     /// <inheritdoc/>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static Size Add(ref readonly Size left, ref readonly Size right)
+    public static SizeF Add(ref readonly SizeF left, ref readonly SizeF right)
         => new(left.Width + right.Width, left.Height + right.Height);
 
     /// <inheritdoc/>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static Size Add(ref readonly Size left, int right)
+    public static SizeF Add(ref readonly SizeF left, float right)
         => new(left.Width + right, left.Height + right);
 
     /// <inheritdoc/>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static Size Subtract(ref readonly Size left, ref readonly Size right)
+    public static SizeF Subtract(ref readonly SizeF left, ref readonly SizeF right)
         => new(left.Width - right.Width, left.Height - right.Height);
 
     /// <inheritdoc/>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static Size Subtract(ref readonly Size left, int right)
+    public static SizeF Subtract(ref readonly SizeF left, float right)
         => new(left.Width - right, left.Height - right);
 
     /// <inheritdoc/>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static Size Divide(ref readonly Size left, ref readonly Size right)
+    public static SizeF Divide(ref readonly SizeF left, ref readonly SizeF right)
         => new(left.Width / right.Width, left.Height / right.Height);
 
     /// <inheritdoc/>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static Size Divide(ref readonly Size left, int right)
+    public static SizeF Divide(ref readonly SizeF left, float right)
         => new(left.Width / right, left.Height / right);
 
     /// <inheritdoc/>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static Size Multiply(ref readonly Size left, ref readonly Size right)
+    public static SizeF Multiply(ref readonly SizeF left, ref readonly SizeF right)
         => new(left.Width * right.Width, left.Height * right.Height);
 
     /// <inheritdoc/>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static Size Multiply(ref readonly Size left, int right)
+    public static SizeF Multiply(ref readonly SizeF left, float right)
         => new(left.Width * right, left.Height * right);
 
     /// <inheritdoc/>
-    public static bool operator ==(Size left, Size right) => left.Equals(right);
+    public static bool operator ==(SizeF left, SizeF right) => left.Equals(right);
 
     /// <inheritdoc/>
-    public static bool operator !=(Size left, Size right) => !left.Equals(right);
+    public static bool operator !=(SizeF left, SizeF right) => !left.Equals(right);
 
     /// <inheritdoc cref="Add(ref readonly SizeF, ref readonly SizeF)"/>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static Size operator +(Size left, Size right) => Add(in left, in right);
+    public static SizeF operator +(SizeF left, SizeF right) => Add(in left, in right);
 
-    /// <inheritdoc cref="Add(ref readonly Size, int)"/>
+    /// <inheritdoc cref="Add(ref readonly SizeF, float)"/>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static Size operator +(Size left, int right) => Add(in left, right);
+    public static SizeF operator +(SizeF left, float right) => Add(in left, right);
 
-    /// <inheritdoc cref="Subtract(ref readonly Size, ref readonly Size)"/>
+    /// <inheritdoc cref="Subtract(ref readonly SizeF, ref readonly SizeF)"/>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static Size operator -(Size left, Size right) => Subtract(in left, in right);
+    public static SizeF operator -(SizeF left, SizeF right) => Subtract(in left, in right);
 
-    /// <inheritdoc cref="Subtract(ref readonly Size, int)"/>
+    /// <inheritdoc cref="Subtract(ref readonly SizeF, float)"/>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static Size operator -(Size left, int right) => Subtract(in left, right);
+    public static SizeF operator -(SizeF left, float right) => Subtract(in left, right);
 
-    /// <inheritdoc cref="Divide(ref readonly Size, ref readonly SizeF)"/>
+    /// <inheritdoc cref="Divide(ref readonly SizeF, ref readonly SizeF)"/>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static Size operator /(Size left, Size right) => Divide(in left, in right);
+    public static SizeF operator /(SizeF left, SizeF right) => Divide(in left, in right);
 
-    /// <inheritdoc cref="Divide(ref readonly SizeF, int)"/>
+    /// <inheritdoc cref="Divide(ref readonly SizeF, float)"/>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static Size operator /(Size left, int right) => Divide(in left, right);
+    public static SizeF operator /(SizeF left, float right) => Divide(in left, right);
 
-    /// <inheritdoc cref="Multiply(ref readonly Size, ref readonly Size)"/>
+    /// <inheritdoc cref="Multiply(ref readonly SizeF, ref readonly SizeF)"/>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static Size operator *(Size left, Size right) => Multiply(in left, in right);
+    public static SizeF operator *(SizeF left, SizeF right) => Multiply(in left, in right);
 
-    /// <inheritdoc cref="Multiply(ref readonly Size, int)"/>
+    /// <inheritdoc cref="Multiply(ref readonly SizeF, float)"/>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static Size operator *(Size left, int right) => Multiply(in left, right);
+    public static SizeF operator *(SizeF left, float right) => Multiply(in left, right);
 
     /// <summary>
-    /// Implicitly converts the <paramref name="point"/> into a size.
+    /// Implicitly converts the <paramref name="vector"/> into a size.
     /// </summary>
-    /// <param name="point">The point.</param>
+    /// <param name="vector">The vector.</param>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static implicit operator Size(Point point) => new(point.X, point.Y);
+    public static implicit operator SizeF(Vector2 vector) => new(vector.X, vector.Y);
 }

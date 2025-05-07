@@ -20,6 +20,9 @@ using SkiaSharp;
 
 namespace Hybrid.Skia;
 
+/// <summary>
+/// Represents a Skia surface.
+/// </summary>
 public class SkiaSurface : DeviceResource, ISkiaSurface
 {
     /// <inheritdoc/>
@@ -71,14 +74,11 @@ public class SkiaSurface : DeviceResource, ISkiaSurface
     /// <inheritdoc/>
     public virtual void Resize(int width, int height)
     {
-        width = Math.Max(width, 1);
-        height = Math.Max(height, 1);
-
         if (Width == width && Height == height)
             return;
 
-        Width = width;
-        Height = height;
+        Width = width = Math.Max(width, 1);
+        Height = height = Math.Max(height, 1);
 
         Utilities.Dispose(ref currentSurface);
 

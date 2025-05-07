@@ -13,11 +13,9 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-using Hybrid.Graphics.DirectX;
-
 namespace Hybrid.Graphics.DirectX11;
 
 /// <summary>
 /// Represents a DirectX 11 resource.
 /// </summary>
-public interface IDx11Resource : IDxResource;
+public interface IDx11Resource : IDisposable;

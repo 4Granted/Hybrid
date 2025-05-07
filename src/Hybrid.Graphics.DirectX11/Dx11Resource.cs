@@ -13,7 +13,6 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-using Hybrid.Graphics.DirectX;
 using Silk.NET.Core.Native;
 using System.Diagnostics;
 
@@ -22,9 +21,13 @@ namespace Hybrid.Graphics.DirectX11;
 /// <summary>
 /// Represents a base implementation of <see cref="IDx11Resource"/>.
 /// </summary>
-internal abstract class Dx11Resource : DxResource, IDx11Resource
+internal abstract class Dx11Resource : Resource, IDx11Resource
 {
-    internal Dx11Resource() { }
+    private static uint nextId;
+
+    public uint Id { get; }
+
+    internal Dx11Resource() => Id = nextId++;
 
     internal static unsafe void ReleaseCom<T>(ref ComPtr<T> com)
         where T : unmanaged, IComVtbl<T>

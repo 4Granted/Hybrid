@@ -13,6 +13,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+using System.Numerics;
+
 namespace Hybrid.Numerics;
 
 /// <summary>
@@ -20,21 +22,6 @@ namespace Hybrid.Numerics;
 /// to implement rectangle properties.
 /// </summary>
 /// <typeparam name="TSelf">The rectangle type.</typeparam>
-public interface IRectangle<TSelf> : INumeric<TSelf>
-    where TSelf : IRectangle<TSelf>
-{
-    /// <summary>
-    /// Gets the position of the rectangle.
-    /// </summary>
-    public Vector2 Position { get; }
-
-    /// <summary>
-    /// Gets the size of the rectangle.
-    /// </summary>
-    public Size Size { get; }
-
-    /// <summary>
-    /// Gets the center of the rectangle.
-    /// </summary>
-    public Vector2 Center { get; }
-}
+public interface IRectangle<TSelf, TNumber> : INumeric<TSelf>
+    where TSelf : IRectangle<TSelf, TNumber>
+    where TNumber : INumber<TNumber>;

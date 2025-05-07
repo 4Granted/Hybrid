@@ -5,6 +5,10 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+    <Title>Hybrid.Numerics</Title>
+    <Authors>Fielding Baran</Authors>
+    <PackageProjectUrl>https://github.com/4Granted/Hybrid</PackageProjectUrl>
   </PropertyGroup>
 
 </Project>
