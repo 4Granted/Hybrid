@@ -1,0 +1,23 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net9.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="ImGui.hlsl" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="ImGui.NET" Version="1.91.6.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Hybrid.Graphics\Hybrid.Graphics.csproj" />
+    <ProjectReference Include="..\Hybrid.Numerics\Hybrid.Numerics.csproj" />
+  </ItemGroup>
+
+</Project>

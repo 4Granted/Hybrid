@@ -1,0 +1,23 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net9.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <OutputType>WinExe</OutputType>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\Hybrid.Graphics.DirectX11\Hybrid.Graphics.DirectX11.csproj" />
+    <ProjectReference Include="..\..\src\Hybrid.Graphics\Hybrid.Graphics.csproj" />
+    <ProjectReference Include="..\..\src\Hybrid.Skia\Hybrid.Skia.csproj" />
+    <ProjectReference Include="..\SampleFramework\SampleFramework.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Present.hlsl">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+</Project>
