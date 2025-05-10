@@ -16,6 +16,7 @@
 using Hybrid.Graphics;
 using Hybrid.Graphics.Native;
 using Hybrid.Graphics.Shaders;
+using Hybrid.Graphics.Textures;
 using Hybrid.Numerics;
 using Hybrid.Skia;
 using SampleFramework;
@@ -23,6 +24,16 @@ using SkiaSharp;
 
 namespace SkiaSample;
 
+/// <summary>
+/// This sample demonstrates how to use SkiaSharp with Hybrid.
+/// </summary>
+/// <remarks>
+/// The sample uses a <see cref="SkiaSurface"/> to acquire an
+/// <see cref="SKCanvas"/>, draw to it, then flush the pixel
+/// data to an internal <see cref="Texture2D"/>. Once the Skia
+/// data has been written to the texture, the image is presented
+/// to the swap chain using a fullscreen triangle to blit.
+/// </remarks>
 internal sealed class SkiaSample : Sample
 {
     private GraphicsPipeline? graphicsPipeline;
@@ -41,18 +52,16 @@ internal sealed class SkiaSample : Sample
             .AddDescriptor(DescriptorType.GraphicsResource, ShaderStage.Pixel)
             .Build(GraphicsDevice);
 
-        var graphicsPipelineDesc = GraphicsPipelineDescription.Default with
+        graphicsPipeline = new GraphicsPipeline(GraphicsDevice)
         {
-            VertexShader = vertexShader,
-            PixelShader = pixelShader,
-            DescriptorLayouts = [descriptorLayout],
             RasterizerState = RasterizerState.Default with
             {
                 WindingMode = WindingMode.CounterClockwise,
             },
+            DescriptorLayouts = [descriptorLayout],
+            VertexShader = vertexShader,
+            PixelShader = pixelShader,
         };
-
-        graphicsPipeline = new GraphicsPipeline(GraphicsDevice, ref graphicsPipelineDesc);
 
         descriptorSet = new DescriptorSet(GraphicsDevice, descriptorLayout);
 

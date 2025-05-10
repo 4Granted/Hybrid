@@ -23,6 +23,9 @@ using System.Runtime.InteropServices;
 
 namespace TextureSample;
 
+/// <summary>
+/// This sample demonstrates how to use textures in Hybrid.
+/// </summary>
 internal sealed class TextureSample : Sample
 {
     [StructLayout(LayoutKind.Sequential)]
@@ -63,15 +66,9 @@ internal sealed class TextureSample : Sample
             .Build(GraphicsDevice);
 
         // Create a graphics pipeline
-        var graphicsPipelineDesc = GraphicsPipelineDescription.Default with
-        {
-            DescriptorLayouts = [descriptorLayout],
-            VertexLayout = new VertexDeclaration(Vertex.Layout),
-            VertexShader = vertexShader,
-            PixelShader = pixelShader,
-        };
-
-        graphicsPipeline = new GraphicsPipeline(GraphicsDevice, ref graphicsPipelineDesc);
+        graphicsPipeline = new GraphicsPipeline(GraphicsDevice,
+            vertexShader: vertexShader, pixelShader: pixelShader,
+            descriptorLayouts: [descriptorLayout]);
 
         // Creates an array of the vertices
         var vertices = new Vertex[4]

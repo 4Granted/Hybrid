@@ -22,6 +22,9 @@ using System.Runtime.InteropServices;
 
 namespace NoiseSample;
 
+/// <summary>
+/// This sample demonstrates how to create a noise shader in Hybrid.
+/// </summary>
 internal sealed class NoiseSample : Sample
 {
     [StructLayout(LayoutKind.Sequential)]
@@ -71,15 +74,9 @@ internal sealed class NoiseSample : Sample
             .Build(GraphicsDevice);
 
         // Create a graphics pipeline
-        var graphicsPipelineDesc = GraphicsPipelineDescription.Default with
-        {
-            VertexLayout = new VertexDeclaration(Vertex.Layout),
-            VertexShader = vertexShader,
-            PixelShader = pixelShader,
-            DescriptorLayouts = [descriptorLayout],
-        };
-
-        graphicsPipeline = new GraphicsPipeline(GraphicsDevice, ref graphicsPipelineDesc);
+        graphicsPipeline = new GraphicsPipeline(GraphicsDevice,
+            vertexShader: vertexShader, pixelShader: pixelShader,
+            descriptorLayouts: [descriptorLayout]);
 
         // Creates an array of the vertices
         var vertices = new Vertex[4]

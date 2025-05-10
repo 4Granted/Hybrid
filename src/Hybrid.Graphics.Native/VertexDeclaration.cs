@@ -34,7 +34,7 @@ public readonly struct VertexDeclaration : IDistinct<VertexDeclaration>
     /// </summary>
     public readonly ImmutableArray<VertexLayout> Layouts;
 
-    public VertexDeclaration(params IReadOnlyCollection<VertexLayout> layouts) => Layouts = [.. layouts];
+    public VertexDeclaration(params Span<VertexLayout> layouts) => Layouts = [.. layouts];
 
     public VertexDeclaration(params VertexElement[] elements)
         => Layouts = [new VertexLayout(elements)];

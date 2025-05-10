@@ -156,6 +156,12 @@ public readonly struct Color : INumeric<Color>
     public static Color Multiply(ref readonly Color left, float right)
         => new(left.R * right, left.G * right, left.B * right, left.A * right);
 
+    /// <summary>
+    /// Gets the minimum components of the two colors.
+    /// </summary>
+    /// <param name="left">The left-hand color.</param>
+    /// <param name="right">The right-hand color.</param>
+    /// <returns>The color.</returns>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static Color Min(ref readonly Color left, ref readonly Color right)
         => new(left.R < right.R ? left.R : right.R,
@@ -163,6 +169,12 @@ public readonly struct Color : INumeric<Color>
                left.B < right.B ? left.B : right.B,
                left.A < right.A ? left.A : right.A);
 
+    /// <summary>
+    /// Gets the maximum components of the two colors.
+    /// </summary>
+    /// <param name="left">The left-hand color.</param>
+    /// <param name="right">The right-hand color.</param>
+    /// <returns>The color.</returns>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static Color Max(ref readonly Color left, ref readonly Color right)
         => new(left.R > right.R ? left.R : right.R,

@@ -13,12 +13,10 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-using Hybrid.Graphics.Native;
-
 namespace Hybrid.Graphics;
 
 /// <summary>
-/// Represents a command queue contract.
+/// Represents a command queue.
 /// </summary>
 public interface ICommandQueue
 {

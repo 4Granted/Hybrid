@@ -13,12 +13,10 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-using Hybrid.Numerics;
-
 namespace Hybrid.Graphics.Textures;
 
 /// <summary>
-/// Represents a three-dimensional texture contract.
+/// Represents a three-dimensional texture.
 /// </summary>
 public interface ITexture3D : ITexture
 {

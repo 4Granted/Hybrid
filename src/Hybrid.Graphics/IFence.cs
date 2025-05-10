@@ -13,12 +13,10 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-using Hybrid.Graphics.Native;
-
 namespace Hybrid.Graphics;
 
 /// <summary>
-/// Represents a fence contract.
+/// Represents a fence.
 /// </summary>
 public interface IFence
 {

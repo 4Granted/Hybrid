@@ -9,6 +9,7 @@
     <Title>Hybrid.Numerics</Title>
     <Authors>Fielding Baran</Authors>
     <PackageProjectUrl>https://github.com/4Granted/Hybrid</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/4Granted/Hybrid</RepositoryUrl>
   </PropertyGroup>
 
 </Project>

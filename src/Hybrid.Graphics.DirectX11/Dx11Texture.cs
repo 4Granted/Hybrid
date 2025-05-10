@@ -222,7 +222,7 @@ internal sealed class Dx11Texture : Dx11NativeResource, ITextureImpl
     {
         if (disposing)
         {
-            Utilities.Dispose(ref textureView);
+            CommonExtensions.Dispose(ref textureView);
         }
 
         ReleaseCom(ref NativeResource);

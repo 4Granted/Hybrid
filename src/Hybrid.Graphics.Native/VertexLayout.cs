@@ -13,7 +13,6 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-using System.Collections.Immutable;
 using System.Diagnostics.CodeAnalysis;
 using System.Runtime.CompilerServices;
 
@@ -27,7 +26,7 @@ public readonly struct VertexLayout : IDistinct<VertexLayout>
     /// <summary>
     /// The elements of the layout.
     /// </summary>
-    public readonly ImmutableArray<VertexElement> Elements;
+    public readonly VertexElement[] Elements;
 
     /// <summary>
     /// The stride of the layout in bytes.
@@ -41,7 +40,7 @@ public readonly struct VertexLayout : IDistinct<VertexLayout>
 
     public VertexLayout(params VertexElement[] elements)
     {
-        Elements = [.. elements];
+        Elements = elements;
 
         uint stride = 0;
 

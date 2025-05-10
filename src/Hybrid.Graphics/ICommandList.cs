@@ -19,7 +19,7 @@ using Hybrid.Numerics;
 namespace Hybrid.Graphics;
 
 /// <summary>
-/// Represents a command list contract.
+/// Represents a command list.
 /// </summary>
 public interface ICommandList
 {

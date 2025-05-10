@@ -16,7 +16,7 @@
 namespace Hybrid.Graphics.Textures;
 
 /// <summary>
-/// Represents a two-dimensional texture contract.
+/// Represents a two-dimensional texture.
 /// </summary>
 public interface ITexture2D : ITexture
 {

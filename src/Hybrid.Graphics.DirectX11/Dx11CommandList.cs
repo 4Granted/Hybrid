@@ -118,14 +118,14 @@ internal sealed class Dx11CommandList : Dx11DeviceResource, ICommandListImpl
             dsv = dxDsv.DxDsv;
         }
 
-        NativeDeferredContext.OMSetRenderTargets((uint)RenderTargetCount, rtvs, dsv);
+        NativeDeferredContext.OMSetRenderTargets(RenderTargetCount, rtvs, dsv);
     }
 
     public unsafe void SetPipeline(IPipelineImpl pipeline)
     {
         if (pipeline.Description != cachedPipeline?.Description)
         {
-            Utilities.AsOrThrow(in pipeline, out Dx11Pipeline dxPipeline);
+            CommonExtensions.AsOrThrow(in pipeline, out Dx11Pipeline dxPipeline);
 
             cachedPipeline = dxPipeline;
 
@@ -172,13 +172,13 @@ internal sealed class Dx11CommandList : Dx11DeviceResource, ICommandListImpl
 
             var vertexStrides = dxPipeline.VertexStrides;
 
-            if (!Utilities.CompareArray(in cachedVertexStrides, in vertexStrides))
+            if (!CommonExtensions.CompareArray(in cachedVertexStrides, in vertexStrides))
             {
                 var length = vertexStrides.Length;
 
-                Utilities.EnsureSize(ref cachedVertexBuffers, length);
-                Utilities.EnsureSize(ref cachedVertexStrides, length);
-                Utilities.EnsureSize(ref cachedVertexOffsets, length);
+                CommonExtensions.EnsureSize(ref cachedVertexBuffers, length);
+                CommonExtensions.EnsureSize(ref cachedVertexStrides, length);
+                CommonExtensions.EnsureSize(ref cachedVertexOffsets, length);
 
                 vertexStrides.CopyTo(cachedVertexStrides, 0);
             }
@@ -187,8 +187,8 @@ internal sealed class Dx11CommandList : Dx11DeviceResource, ICommandListImpl
 
     public void SetDescriptorSet(uint index, IDescriptorSetImpl descriptors)
     {
-        Utilities.AsOrThrow(in descriptors, out Dx11DescriptorSet dxDescriptors);
-        Utilities.AsOrThrow(descriptors.Layout, out Dx11DescriptorLayout dxLayout);
+        CommonExtensions.AsOrThrow(in descriptors, out Dx11DescriptorSet dxDescriptors);
+        CommonExtensions.AsOrThrow(descriptors.Layout, out Dx11DescriptorLayout dxLayout);
 
         var elements = dxLayout.Elements;
         var entries = dxDescriptors.Entries;
@@ -228,7 +228,7 @@ internal sealed class Dx11CommandList : Dx11DeviceResource, ICommandListImpl
 
     public void SetVertexBuffer(IBufferImpl buffer, uint index, uint offset)
     {
-        Utilities.AsOrThrow(in buffer, out Dx11Buffer dxBuffer);
+        CommonExtensions.AsOrThrow(in buffer, out Dx11Buffer dxBuffer);
 
         if (buffer?.Id != cachedVertexBuffers[index]?.Id || offset != cachedVertexOffsets[index])
         {
@@ -245,7 +245,7 @@ internal sealed class Dx11CommandList : Dx11DeviceResource, ICommandListImpl
     {
         if (buffer.Id != cachedIndexBuffer || offset != cachedIndexOffset)
         {
-            Utilities.AsOrThrow(in buffer, out Dx11Buffer dxBuffer);
+            CommonExtensions.AsOrThrow(in buffer, out Dx11Buffer dxBuffer);
 
             cachedIndexBuffer = buffer.Id;
             cachedIndexOffset = offset;
@@ -262,7 +262,7 @@ internal sealed class Dx11CommandList : Dx11DeviceResource, ICommandListImpl
 
     public void SetViewport(ref readonly Numerics.Viewport viewport, uint index)
     {
-        Utilities.EnsureSize(ref cachedViewports, (int)index + 1);
+        CommonExtensions.EnsureSize(ref cachedViewports, (int)index + 1);
 
         cachedViewports[index] = new NativeViewport
         {
@@ -279,7 +279,7 @@ internal sealed class Dx11CommandList : Dx11DeviceResource, ICommandListImpl
 
     public void SetScissor(ref readonly Rectangle bounds, uint index)
     {
-        Utilities.EnsureSize(ref cachedScissors, (int)index + 1);
+        CommonExtensions.EnsureSize(ref cachedScissors, (int)index + 1);
 
         cachedScissors[index] = new NativeBox
         {
@@ -300,7 +300,7 @@ internal sealed class Dx11CommandList : Dx11DeviceResource, ICommandListImpl
 
     public unsafe void ClearRenderTarget(ITextureViewImpl renderTarget, Color color)
     {
-        Utilities.AsOrThrow(in renderTarget, out Dx11TextureView dxView);
+        CommonExtensions.AsOrThrow(in renderTarget, out Dx11TextureView dxView);
 
         NativeDeferredContext.ClearRenderTargetView(dxView.DxRtv, (float*)&color);
     }
@@ -312,7 +312,7 @@ internal sealed class Dx11CommandList : Dx11DeviceResource, ICommandListImpl
         if (stencilEnabled)
             flags |= ClearFlag.Stencil;
 
-        Utilities.AsOrThrow(in depthStencil, out Dx11TextureView dxView);
+        CommonExtensions.AsOrThrow(in depthStencil, out Dx11TextureView dxView);
 
         NativeDeferredContext.ClearDepthStencilView(dxView.DxDsv, (uint)flags, depth, stencil);
     }
@@ -361,7 +361,7 @@ internal sealed class Dx11CommandList : Dx11DeviceResource, ICommandListImpl
 
             lock (immediateLock)
             {
-                Utilities.AsOrThrow(in resource, out Dx11NativeResource dx);
+                CommonExtensions.AsOrThrow(in resource, out Dx11NativeResource dx);
 
                 MappedSubresource mapped = default;
 
@@ -385,7 +385,7 @@ internal sealed class Dx11CommandList : Dx11DeviceResource, ICommandListImpl
         {
             lock (immediateLock)
             {
-                Utilities.AsOrThrow(in resource.Resource, out Dx11NativeResource dx);
+                CommonExtensions.AsOrThrow(in resource.Resource, out Dx11NativeResource dx);
 
                 NativeImmediateContext.Unmap(dx.NativeResource, resource.Subresource);
             }
@@ -394,22 +394,22 @@ internal sealed class Dx11CommandList : Dx11DeviceResource, ICommandListImpl
 
     public unsafe void WriteResource(IGpuResource resource, uint subresource, DataBox data)
     {
-        Utilities.AsOrThrow(in resource, out Dx11NativeResource dx);
+        CommonExtensions.AsOrThrow(in resource, out Dx11NativeResource dx);
 
         NativeDeferredContext.UpdateSubresource1(dx.NativeResource, 0, ref SilkMarshal.NullRef<Silk.NET.Direct3D11.Box>(), data.DataPointer.ToPointer(), data.RowPitch, data.SlicePitch, 0);
     }
 
     public unsafe void WriteResource(IGpuResource resource, uint subresource, ResourceRegion region, DataBox data)
     {
-        Utilities.AsOrThrow(in resource, out Dx11NativeResource dx);
+        CommonExtensions.AsOrThrow(in resource, out Dx11NativeResource dx);
 
         NativeDeferredContext.UpdateSubresource1(dx.NativeResource, subresource, ref region.AsDx(), data.DataPointer.ToPointer(), data.RowPitch, data.SlicePitch, 0);
     }
 
     public void CopyTexture(ITextureImpl source, uint sourceSubresource, ITextureImpl destination, uint destinationSubresource, TextureFormat format)
     {
-        Utilities.AsOrThrow(in source, out Dx11Texture dxs);
-        Utilities.AsOrThrow(in destination, out Dx11Texture dxd);
+        CommonExtensions.AsOrThrow(in source, out Dx11Texture dxs);
+        CommonExtensions.AsOrThrow(in destination, out Dx11Texture dxd);
 
         NativeDeferredContext.ResolveSubresource(dxd.NativeResource, destinationSubresource, dxs.NativeResource, sourceSubresource, dxd.NativeFormat);
     }
@@ -534,7 +534,7 @@ internal sealed class Dx11CommandList : Dx11DeviceResource, ICommandListImpl
 
     private void SetConstantsBuffer(ShaderStage stage, uint index, Dx11NativeResource resource)
     {
-        Utilities.AsOrThrow(in resource, out Dx11Buffer dxBuffer);
+        CommonExtensions.AsOrThrow(in resource, out Dx11Buffer dxBuffer);
 
         var buffer = dxBuffer.NativeBuffer;
 
@@ -586,7 +586,7 @@ internal sealed class Dx11CommandList : Dx11DeviceResource, ICommandListImpl
 
     private void SetSampler(uint index, Dx11NativeResource resource)
     {
-        Utilities.AsOrThrow(in resource, out Dx11Sampler dxSampler);
+        CommonExtensions.AsOrThrow(in resource, out Dx11Sampler dxSampler);
 
         NativeDeferredContext.PSSetSamplers(index, 1, ref dxSampler.NativeSampler);
     }

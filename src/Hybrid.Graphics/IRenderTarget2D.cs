@@ -18,6 +18,6 @@ using Hybrid.Graphics.Textures;
 namespace Hybrid.Graphics;
 
 /// <summary>
-/// Represents an API independent render target resource.
+/// Represents a two-dimensional render target.
 /// </summary>
 public interface IRenderTarget2D : IRenderTarget, ITexture2D;

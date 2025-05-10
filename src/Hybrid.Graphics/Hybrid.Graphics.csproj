@@ -9,6 +9,7 @@
     <Authors>Fielding Baran</Authors>
     <Title>Hybrid.Graphics</Title>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+    <RepositoryUrl>https://github.com/4Granted/Hybrid</RepositoryUrl>
   </PropertyGroup>
 
   <ItemGroup>

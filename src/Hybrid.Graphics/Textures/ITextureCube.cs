@@ -16,6 +16,6 @@
 namespace Hybrid.Graphics.Textures;
 
 /// <summary>
-/// Represents a texture cube contract.
+/// Represents a texture cube.
 /// </summary>
 public interface ITextureCube : ITexture;

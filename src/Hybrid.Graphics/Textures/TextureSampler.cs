@@ -17,6 +17,9 @@ using Hybrid.Graphics.Native;
 
 namespace Hybrid.Graphics.Textures;
 
+/// <summary>
+/// Represents a texture sampler.
+/// </summary>
 public sealed class TextureSampler : GpuResource
 {
     /// <summary>

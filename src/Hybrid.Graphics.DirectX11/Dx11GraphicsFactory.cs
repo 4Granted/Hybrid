@@ -46,7 +46,7 @@ internal sealed class Dx11GraphicsFactory : Dx11DeviceResource, IGraphicsFactory
 
     public IDescriptorSetImpl CreateDescriptorSet(IDescriptorLayoutImpl layout)
     {
-        Utilities.AsOrThrow(layout, out Dx11DescriptorLayout dxLayout);
+        CommonExtensions.AsOrThrow(layout, out Dx11DescriptorLayout dxLayout);
 
         return new Dx11DescriptorSet(GraphicsDevice, dxLayout);
     }
@@ -67,7 +67,7 @@ internal sealed class Dx11GraphicsFactory : Dx11DeviceResource, IGraphicsFactory
     {
         var bytecode = shaderCompiler.Compile(ref description);
 
-        Utilities.AsOrThrow(in bytecode, out Dx11ShaderBytecode dxBytecode);
+        CommonExtensions.AsOrThrow(in bytecode, out Dx11ShaderBytecode dxBytecode);
 
         return new Dx11Shader(GraphicsDevice, dxBytecode, ref description);
     }

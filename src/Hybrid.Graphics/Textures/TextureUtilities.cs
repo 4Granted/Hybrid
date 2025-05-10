@@ -19,6 +19,14 @@ namespace Hybrid.Graphics.Textures;
 
 internal static class TextureUtilities
 {
+    /// <summary>
+    /// Gets the pitch of a texture format.
+    /// </summary>
+    /// <param name="format">The texture format.</param>
+    /// <param name="width">The texture width.</param>
+    /// <param name="height">The texture height.</param>
+    /// <param name="rowPitch">The row pitch.</param>
+    /// <param name="depthPitch">The depth pitch.</param>
     public static void GetPitch(
         TextureFormat format, int width, int height,
         out int rowPitch, out int depthPitch)
@@ -27,22 +35,46 @@ internal static class TextureUtilities
         depthPitch = GetDepthPitch(format, rowPitch, height);
     }
 
+    /// <summary>
+    /// Gets the row pitch of a texture format.
+    /// </summary>
+    /// <param name="format">The texture format.</param>
+    /// <param name="width">The texture width.</param>
+    /// <returns>The row pitch.</returns>
     public static int GetRowPitch(TextureFormat format, int width) => format switch
     {
         // TODO: Compressed formats
         _ => width * GetSizeInBytes(format),
     };
 
+    /// <summary>
+    /// Gets the depth pitch of a texture format.
+    /// </summary>
+    /// <param name="format">The texture format.</param>
+    /// <param name="rowPitch">The row pitch.</param>
+    /// <param name="height">The texture height.</param>
+    /// <returns>The depth pitch.</returns>
     public static int GetDepthPitch(
         TextureFormat format, int rowPitch, int height)
-        => rowPitch * GetNumRows(format, height);
+        => rowPitch * GetRowCount(format, height);
 
-    public static int GetNumRows(TextureFormat format, int height) => format switch
+    /// <summary>
+    /// Gets the number of rows in a texture format.
+    /// </summary>
+    /// <param name="format">The texture format.</param>
+    /// <param name="height">The texture height.</param>
+    /// <returns>The amount of rows.</returns>
+    public static int GetRowCount(TextureFormat format, int height) => format switch
     {
         // TODO: Compressed formats
         _ => height,
     };
 
+    /// <summary>
+    /// Gets the size of the texture format in bytes.
+    /// </summary>
+    /// <param name="format">The texture format.</param>
+    /// <returns>The size in bytes.</returns>
     public static int GetSizeInBytes(TextureFormat format) => format switch
     {
         TextureFormat.R8UNorm or

@@ -22,6 +22,9 @@ using System.Runtime.InteropServices;
 
 namespace TriangleSample;
 
+/// <summary>
+/// This sample demonstrates how to draw a triangle using Hybrid.
+/// </summary>
 internal sealed class TriangleSample : Sample
 {
     [StructLayout(LayoutKind.Sequential)]
@@ -54,14 +57,8 @@ internal sealed class TriangleSample : Sample
         var pixelShader = new PixelShader(GraphicsDevice, source);
 
         // Create a graphics pipeline
-        var pipelineDescription = GraphicsPipelineDescription.Default with
-        {
-            VertexShader = vertexShader,
-            PixelShader = pixelShader,
-            VertexLayout = new VertexDeclaration(Vertex.Layout),
-        };
-
-        pipeline = new GraphicsPipeline(GraphicsDevice, ref pipelineDescription);
+        pipeline = new GraphicsPipeline(GraphicsDevice,
+            vertexShader: vertexShader, pixelShader: pixelShader);
 
         // Creates an array of the vertices
         Span<Vertex> vertices =

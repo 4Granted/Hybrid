@@ -9,11 +9,13 @@
     <Title>Hybrid.Graphics.DirectX11</Title>
     <Authors>Fielding Baran</Authors>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+    <RepositoryUrl>https://github.com/4Granted/Hybrid</RepositoryUrl>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="Silk.NET.Direct3D.Compilers" Version="2.22.0" />
     <PackageReference Include="Silk.NET.Direct3D11" Version="2.22.0" />
+    <PackageReference Include="Silk.NET.DXGI" Version="2.22.0" />
   </ItemGroup>
 
   <ItemGroup>

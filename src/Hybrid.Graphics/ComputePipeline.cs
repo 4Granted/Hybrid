@@ -62,7 +62,7 @@ public struct ComputePipeline : IDistinct<ComputePipeline>
 
     /// <inheritdoc/>
     public readonly override bool Equals([NotNullWhen(true)] object? obj)
-        => obj is GraphicsPipelineDescription other && Equals(other);
+        => obj is ComputePipeline other && Equals(other);
 
     /// <inheritdoc/>
     public readonly override int GetHashCode() => HashCode.Combine(

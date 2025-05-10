@@ -51,7 +51,7 @@ internal sealed class Dx11DescriptorSet : Dx11DeviceResource, IDescriptorSetImpl
             entry.Resource = resource;
             entry.Index = (uint)index;
 
-            Utilities.AsOrThrow(resource, out Dx11NativeResource dxResource);
+            CommonExtensions.AsOrThrow(resource, out Dx11NativeResource dxResource);
 
             Resources[index] = dxResource;
         }

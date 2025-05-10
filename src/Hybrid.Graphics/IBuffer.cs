@@ -18,7 +18,7 @@ using Hybrid.Graphics.Native;
 namespace Hybrid.Graphics;
 
 /// <summary>
-/// Represents a buffer contract.
+/// Represents a buffer.
 /// </summary>
 public interface IBuffer : IDisposable
 {

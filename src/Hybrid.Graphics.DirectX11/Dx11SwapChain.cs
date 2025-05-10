@@ -114,6 +114,6 @@ internal sealed class Dx11SwapChain : Dx11DeviceResource, ISwapChainImpl
 
     private void DisposeSizeDependentResources()
     {
-        Utilities.Dispose(ref RenderTarget);
+        CommonExtensions.Dispose(ref RenderTarget);
     }
 }

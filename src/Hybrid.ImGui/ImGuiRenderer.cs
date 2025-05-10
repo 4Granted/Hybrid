@@ -195,26 +195,18 @@ public sealed class ImGuiRenderer : DeviceResource, IImGuiRenderer
 
         constantsBuffer = new ConstantsBuffer<Matrix4x4>(GraphicsDevice);
 
-        var graphicsPipelineDesc = new GraphicsPipelineDescription
-        {
-            RasterizerState = RasterizerState.Default with
+        graphicsPipeline = new GraphicsPipeline(GraphicsDevice,
+            rasterizerState: RasterizerState.Default with
             {
                 WindingMode = WindingMode.Clockwise,
                 CullMode = CullMode.None,
                 DepthEnabled = false,
                 ScissorEnabled = true,
-            },
-            BlendState = BlendState.NonPremultiplied,
-            DepthStencilState = DepthStencilState.DepthRead,
-            DescriptorLayouts = [descriptorLayout],
-            VertexLayout = new(Vertex.Layout),
-            VertexShader = vertexShader,
-            PixelShader = pixelShader,
-            BlendFactor = Color.White,
-            Topology = PrimitiveTopology.TriangleList,
-        };
-
-        graphicsPipeline = new GraphicsPipeline(GraphicsDevice, ref graphicsPipelineDesc);
+            }, blendState: BlendState.NonPremultiplied,
+            depthStencilState: DepthStencilState.DepthRead,
+            descriptorLayouts: [descriptorLayout],
+            vertexShader: vertexShader,
+            pixelShader: pixelShader);
 
         CreateFontAtlas();
     }

@@ -4,6 +4,11 @@
     <TargetFramework>net9.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
+    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+    <Title>Hybrid.Skia</Title>
+    <Authors>Fielding Baran</Authors>
+    <PackageProjectUrl>https://github.com/4Granted/Hybrid</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/4Granted/Hybrid</RepositoryUrl>
   </PropertyGroup>
 
   <ItemGroup>

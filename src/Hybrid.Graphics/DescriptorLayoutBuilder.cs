@@ -17,6 +17,9 @@ using Hybrid.Graphics.Native;
 
 namespace Hybrid.Graphics;
 
+/// <summary>
+/// Represents a <see cref="DescriptorLayout"/> builder.
+/// </summary>
 public sealed class DescriptorLayoutBuilder
 {
     private static readonly Queue<DescriptorLayoutBuilder> available = [];
@@ -26,6 +29,11 @@ public sealed class DescriptorLayoutBuilder
 
     private DescriptorLayoutBuilder() => elements = [];
 
+    /// <summary>
+    /// Builds the descriptor layout.
+    /// </summary>
+    /// <param name="graphicsDevice">The graphics device.</param>
+    /// <returns>The layout.</returns>
     public DescriptorLayout Build(GraphicsDevice graphicsDevice)
     {
         var description = new DescriptorLayoutDescription
@@ -42,6 +50,13 @@ public sealed class DescriptorLayoutBuilder
         return new DescriptorLayout(graphicsDevice, ref description);
     }
 
+    /// <summary>
+    /// Adds a descriptor to the layout.
+    /// </summary>
+    /// <param name="type">The descriptor type.</param>
+    /// <param name="stage">The shader stage.</param>
+    /// <param name="index">The descriptor index.</param>
+    /// <returns>The builder.</returns>
     public DescriptorLayoutBuilder AddDescriptor(
         DescriptorType type, ShaderStage stage, int index = -1)
     {
@@ -66,6 +81,10 @@ public sealed class DescriptorLayoutBuilder
         return this;
     }
 
+    /// <summary>
+    /// Creates a decriptor layout builder..
+    /// </summary>
+    /// <returns>The builder.</returns>
     public static DescriptorLayoutBuilder Create()
     {
         if (!available.TryDequeue(out var builder))

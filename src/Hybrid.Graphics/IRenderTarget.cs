@@ -18,6 +18,6 @@ using Hybrid.Graphics.Textures;
 namespace Hybrid.Graphics;
 
 /// <summary>
-/// Represents an API independent render target resource.
+/// Represents a render target.
 /// </summary>
 public interface IRenderTarget : ITexture;

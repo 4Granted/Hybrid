@@ -20,7 +20,7 @@ namespace Hybrid;
 /// <summary>
 /// Represents a collection of general utility functions.
 /// </summary>
-public static class Utilities
+public static class CommonExtensions
 {
     public static void EnsureSize<TArray>(ref TArray[] array, int size)
     {

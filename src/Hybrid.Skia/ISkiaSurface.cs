@@ -13,7 +13,6 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-using Hybrid.Graphics;
 using Hybrid.Graphics.Textures;
 using SkiaSharp;
 

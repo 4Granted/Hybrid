@@ -18,7 +18,7 @@ using Hybrid.Graphics.Native;
 namespace Hybrid.Graphics;
 
 /// <summary>
-/// Defines the access of a <see cref="IGpuResource"/>.
+/// Defines the access of an <see cref="IGpuResource"/>.
 /// </summary>
 public enum ResourceAccess
 {

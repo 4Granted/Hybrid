@@ -8,6 +8,7 @@
     <Title>Hybrid</Title>
     <PackageProjectUrl>https://github.com/4Granted/Hybrid</PackageProjectUrl>
     <Authors>Fielding Baran</Authors>
+    <RepositoryUrl>https://github.com/4Granted/Hybrid</RepositoryUrl>
   </PropertyGroup>
 
 </Project>

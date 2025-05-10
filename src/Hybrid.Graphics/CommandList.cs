@@ -50,7 +50,7 @@ public sealed class CommandList : DeviceResource, ICommandList
     private readonly Rectangle[] scissors = new Rectangle[8];
 
     private GraphicsPipeline? pipelineCache = null;
-    private VertexBufferView[] vertexBufferCache = new VertexBufferView[1];
+    private VertexLayout[] vertexLayoutCache = new VertexLayout[1];
     private IndexBufferView indexBufferCache = default;
     private int vertexBufferCount;
 
@@ -94,6 +94,8 @@ public sealed class CommandList : DeviceResource, ICommandList
 
         pipelineCache = pipeline;
 
+        pipeline.Initialize(vertexLayoutCache);
+
         Impl.SetPipeline(pipeline.Impl);
     }
 
@@ -117,13 +119,13 @@ public sealed class CommandList : DeviceResource, ICommandList
         Debug.Assert(view.Index >= 0, "A vertex buffer index must be equal to or greater than zero");
         Debug.Assert(view.Offset >= 0, "A vertex buffer offset must be equal to or greater than zero");
 
-        Utilities.EnsureSize(ref vertexBufferCache, view.Index);
+        CommonExtensions.EnsureSize(ref vertexLayoutCache, view.Index);
 
         var buffer = view.Buffer.Impl;
 
         Impl.SetVertexBuffer(buffer, (uint)view.Index, (uint)view.Offset);
 
-        vertexBufferCache[view.Index] = view;
+        vertexLayoutCache[view.Index] = view.Layout;
 
         vertexBufferCount = Math.Max(view.Index + 1, vertexBufferCount);
     }
@@ -230,8 +232,7 @@ public sealed class CommandList : DeviceResource, ICommandList
 
         Array.Clear(viewports);
         Array.Clear(scissors);
-        Array.Clear(vertexBufferCache);
-        //Array.Clear(vertexLayoutCache);
+        Array.Clear(vertexLayoutCache);
 
         indexBufferCache = default;
 
@@ -325,54 +326,4 @@ public sealed class CommandList : DeviceResource, ICommandList
         PrimitiveTopology.LineStrip => count + 2,
         PrimitiveTopology.PointList or _ => count,
     };
-}
-
-/// <summary>
-/// Represents a graphics pipeline.
-/// </summary>
-public sealed class GraphicsPipeline : DeviceResource
-{
-    /// <summary>
-    /// Gets the native pipeline.
-    /// </summary>
-    public IPipelineImpl Impl { get; }
-
-    /// <summary>
-    /// Gets the primitive topology of the pipeline.
-    /// </summary>
-    public PrimitiveTopology Topology { get; }
-
-    public GraphicsPipeline(
-        GraphicsDevice graphicsDevice,
-        ref GraphicsPipelineDescription description)
-        : base(graphicsDevice)
-    {
-        Topology = description.Topology;
-
-        var descriptorLayouts = description.DescriptorLayouts ?? [];
-        var descriptorLayoutImpls = new IDescriptorLayoutImpl[descriptorLayouts.Length];
-
-        for (int i = 0; i < descriptorLayouts.Length; i++)
-        {
-            var layout = descriptorLayouts[i];
-
-            descriptorLayoutImpls[i] = layout.Impl;
-        }
-
-        var desc = new PipelineDescription()
-        {
-            RasterizerState = description.RasterizerState,
-            BlendState = description.BlendState,
-            DepthStencilState = description.DepthStencilState,
-            DescriptorLayouts = descriptorLayoutImpls,
-            VertexLayout = description.VertexLayout,
-            VertexShader = description.VertexShader.Impl,
-            GeometryShader = description.GeometryShader?.Impl,
-            PixelShader = description.PixelShader.Impl,
-            BlendFactor = description.BlendFactor,
-            Topology = description.Topology,
-        };
-
-        Impl = graphicsDevice.GetOrCreatePipeline(ref desc);
-    }
 }

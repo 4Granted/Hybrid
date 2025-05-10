@@ -18,7 +18,7 @@ using Hybrid.Graphics.Native;
 namespace Hybrid.Graphics.Textures;
 
 /// <summary>
-/// Represents a texture contract.
+/// Represents a texture.
 /// </summary>
 public interface ITexture : IDisposable
 {

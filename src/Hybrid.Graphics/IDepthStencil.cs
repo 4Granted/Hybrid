@@ -13,7 +13,11 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-using Hybrid.Graphics.DirectX11;
-using Hybrid.Graphics.Native;
+using Hybrid.Graphics.Textures;
 
-[assembly: Renderer(typeof(Dx11GraphicsBackend))]
+namespace Hybrid.Graphics;
+
+/// <summary>
+/// Represents a depth stencil.
+/// </summary>
+public interface IDepthStencil : ITexture2D;

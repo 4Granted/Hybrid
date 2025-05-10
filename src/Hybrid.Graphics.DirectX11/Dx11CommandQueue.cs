@@ -36,7 +36,7 @@ internal sealed class Dx11CommandQueue : Dx11DeviceResource, ICommandQueueImpl
     {
         lock (contextLock)
         {
-            Utilities.AsOrThrow<ICommandListImpl, Dx11CommandList>(commandList, out var dxCommandList);
+            CommonExtensions.AsOrThrow<ICommandListImpl, Dx11CommandList>(commandList, out var dxCommandList);
 
             DxImmediateContext.ExecuteCommandList(dxCommandList.NativeCommandList, false);
 

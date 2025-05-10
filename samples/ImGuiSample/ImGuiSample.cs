@@ -21,6 +21,9 @@ using SampleFramework;
 
 namespace ImGuiSample;
 
+/// <summary>
+/// This sample demonstrates how to use ImGui with Hybrid.
+/// </summary>
 internal sealed class ImGuiSample : Sample
 {
     private ImGuiRenderer imGuiRenderer = default!;

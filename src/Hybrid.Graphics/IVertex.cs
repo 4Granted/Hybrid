@@ -18,12 +18,12 @@ using Hybrid.Graphics.Native;
 namespace Hybrid.Graphics;
 
 /// <summary>
-/// Represents a vertex data structure.
+/// Represents a vertex.
 /// </summary>
 public interface IVertex
 {
     /// <summary>
-    /// Gets the vertex layout of the data structure.
+    /// Gets the layout of the vertex.
     /// </summary>
     public static abstract VertexLayout Layout { get; }
 }

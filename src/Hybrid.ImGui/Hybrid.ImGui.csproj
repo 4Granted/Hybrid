@@ -5,6 +5,11 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+    <PackageProjectUrl>https://github.com/4Granted/Hybrid</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/4Granted/Hybrid</RepositoryUrl>
+    <Title>Hybrid.ImGui</Title>
+    <Authors>Fielding Baran</Authors>
   </PropertyGroup>
 
   <ItemGroup>

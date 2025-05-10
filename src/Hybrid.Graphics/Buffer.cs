@@ -102,7 +102,7 @@ public class Buffer : GpuResource, IBuffer
     public void InitializeUnsafe(ref BufferDescription description)
     {
         // Ensure the previous buffer is disposed of
-        Utilities.Dispose(ref impl);
+        CommonExtensions.Dispose(ref impl);
 
         this.description = description;
 
@@ -220,7 +220,7 @@ public class Buffer : GpuResource, IBuffer
 
         if (disposing)
         {
-            Utilities.Dispose(ref impl);
+            CommonExtensions.Dispose(ref impl);
         }
     }
 

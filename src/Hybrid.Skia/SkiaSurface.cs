@@ -80,7 +80,7 @@ public class SkiaSurface : DeviceResource, ISkiaSurface
         Width = width = Math.Max(width, 1);
         Height = height = Math.Max(height, 1);
 
-        Utilities.Dispose(ref currentSurface);
+        CommonExtensions.Dispose(ref currentSurface);
 
         Image.Resize(width, height);
     }
@@ -106,7 +106,7 @@ public class SkiaSurface : DeviceResource, ISkiaSurface
         {
             Image.Dispose();
 
-            Utilities.Dispose(ref currentSurface);
+            CommonExtensions.Dispose(ref currentSurface);
         }
     }
 }

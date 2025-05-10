@@ -47,20 +47,20 @@ internal sealed class Dx11Pipeline : Dx11DeviceResource, IPipelineImpl
         Description = description;
 
         // Create the vertex shader
-        Utilities.AsOrThrow(in description.VertexShader, out Dx11Shader vertexShader);
+        CommonExtensions.AsOrThrow(in description.VertexShader, out Dx11Shader vertexShader);
 
         SilkMarshal.ThrowHResult(vertexShader.NativeResource.QueryInterface(out VertexShader));
 
         // Create the pixel shader
         if (description.GeometryShader is { } gs)
         {
-            Utilities.AsOrThrow(in gs, out Dx11Shader geometryShader);
+            CommonExtensions.AsOrThrow(in gs, out Dx11Shader geometryShader);
 
             SilkMarshal.ThrowHResult(geometryShader.NativeResource.QueryInterface(out GeometryShader));
         }
 
         // Create the pixel shader
-        Utilities.AsOrThrow(in description.PixelShader, out Dx11Shader pixelShader);
+        CommonExtensions.AsOrThrow(in description.PixelShader, out Dx11Shader pixelShader);
 
         SilkMarshal.ThrowHResult(pixelShader.NativeResource.QueryInterface(out PixelShader));
 
@@ -75,7 +75,7 @@ internal sealed class Dx11Pipeline : Dx11DeviceResource, IPipelineImpl
                out DepthStencilState,
                out InputLayout);
 
-        Utilities.AsOrThrow(in description.DescriptorLayouts, out DescriptorLayouts);
+        CommonExtensions.AsOrThrow(in description.DescriptorLayouts, out DescriptorLayouts);
 
         PrimitiveTopology = Dx11Utilities.GetPrimitiveTopology(description.Topology);
         BlendFactor = description.BlendFactor;

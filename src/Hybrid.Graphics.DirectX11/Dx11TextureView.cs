@@ -38,7 +38,7 @@ internal sealed class Dx11TextureView : Dx11NativeResource, ITextureViewImpl
     {
         Description = description;
 
-        Utilities.AsOrThrow(description.Texture, out Dx11Texture texture);
+        CommonExtensions.AsOrThrow(description.Texture, out Dx11Texture texture);
 
         var usage = texture.Description.Usage;
 

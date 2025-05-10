@@ -18,7 +18,7 @@ using Hybrid.Graphics.Native;
 namespace Hybrid.Graphics.Textures;
 
 /// <summary>
-/// Represents an API independent texture resource.
+/// Represents a texture resource.
 /// </summary>
 public class Texture : GpuResource, ITexture
 {
@@ -122,13 +122,11 @@ public class Texture : GpuResource, ITexture
     public void InitializeUnsafe(ref TextureDescription description)
     {
         // Ensure the previous texture is disposed of
-        Utilities.Dispose(ref impl);
+        CommonExtensions.Dispose(ref impl);
 
         this.description = description;
 
         impl = CreateTexture(ref description);
-
-        OnInitialized();
     }
 
     /// <summary>
@@ -149,6 +147,14 @@ public class Texture : GpuResource, ITexture
         InitializeUnsafe(ref description);
     }
 
+    /// <summary>
+    /// Writes pixel data to the texture.
+    /// </summary>
+    /// <param name="commandList">The command list.</param>
+    /// <param name="data">The pixel data.</param>
+    /// <param name="arraySlice">The array slice.</param>
+    /// <param name="mipSlice">The mip slice.</param>
+    /// <param name="region">The region.</param>
     public unsafe void WriteUnsafe(CommandList commandList, DataBox data, int arraySlice = 0, int mipSlice = 0, ResourceRegion? region = null)
     {
         var subresource = (uint)GetSubresource(arraySlice, mipSlice);
@@ -172,6 +178,15 @@ public class Texture : GpuResource, ITexture
         }
     }
 
+    /// <summary>
+    /// Writes pixel data to the texture.
+    /// </summary>
+    /// <typeparam name="TPixel">The pixel type.</typeparam>
+    /// <param name="commandList">The command list.</param>
+    /// <param name="data">The pixel data.</param>
+    /// <param name="arraySlice">The array slice.</param>
+    /// <param name="mipSlice">The mip slice.</param>
+    /// <param name="region">The region.</param>
     public unsafe void WriteUnsafe<TPixel>(CommandList commandList, Span<TPixel> data, int arraySlice = 0, int mipSlice = 0, ResourceRegion? region = null)
         where TPixel : unmanaged
     {
@@ -185,9 +200,24 @@ public class Texture : GpuResource, ITexture
         }
     }
 
+    /// <summary>
+    /// Writes pixel data to the texture using a <paramref name="bitmap"/>.
+    /// </summary>
+    /// <typeparam name="TPixel">The pixel type.</typeparam>
+    /// <param name="commandList">The command list.</param>
+    /// <param name="bitmap">The bitmap.</param>
+    /// <param name="arraySlice">The array slice.</param>
+    /// <param name="mipSlice">The mip slice.</param>
+    /// <param name="region">The region.</param>
     public unsafe void WriteUnsafe<TPixel>(CommandList commandList, Bitmap<TPixel> bitmap, int arraySlice = 0, int mipSlice = 0, ResourceRegion? region = null)
         where TPixel : unmanaged => WriteUnsafe(commandList, bitmap.Data.Span, arraySlice, mipSlice, region);
 
+    /// <summary>
+    /// Gets the subresource index of the texture.
+    /// </summary>
+    /// <param name="arraySlice">The array slice.</param>
+    /// <param name="mipSlice">The mip slice.</param>
+    /// <returns>The subresource index.</returns>
     public int GetSubresource(int arraySlice, int mipSlice)
         => arraySlice * MipLevels + mipSlice;
 
@@ -198,14 +228,9 @@ public class Texture : GpuResource, ITexture
 
         if (disposing)
         {
-            Utilities.Dispose(ref impl);
+            CommonExtensions.Dispose(ref impl);
         }
     }
-
-    /// <summary>
-    /// Invoked upon the texture being initialized.
-    /// </summary>
-    protected virtual void OnInitialized() { }
 
     private ITextureImpl CreateTexture(ref TextureDescription description)
         => Factory.CreateTexture(ref description);

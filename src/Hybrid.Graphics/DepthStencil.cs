@@ -18,7 +18,10 @@ using Hybrid.Graphics.Textures;
 
 namespace Hybrid.Graphics;
 
-public class DepthStencil : Texture2D
+/// <summary>
+/// Represents a depth-stencil texture.
+/// </summary>
+public class DepthStencil : Texture2D, IDepthStencil
 {
     public DepthStencil(GraphicsDevice graphicsDevice, TextureFormat format,
         int width, int height, int arraySize = 1, int mipLevels = 1,

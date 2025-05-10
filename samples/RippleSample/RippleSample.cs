@@ -22,6 +22,9 @@ using System.Runtime.InteropServices;
 
 namespace RippleSample;
 
+/// <summary>
+/// This sample demonstrates how to create a ripple effect shader in Hybrid.
+/// </summary>
 internal sealed class RippleSample : Sample
 {
     [StructLayout(LayoutKind.Sequential)]
@@ -74,15 +77,9 @@ internal sealed class RippleSample : Sample
             .Build(GraphicsDevice);
 
         // Create a graphics pipeline
-        var graphicsPipelineDesc = GraphicsPipelineDescription.Default with
-        {
-            VertexLayout = new VertexDeclaration(Vertex.Layout),
-            VertexShader = vertexShader,
-            PixelShader = pixelShader,
-            DescriptorLayouts = [descriptorLayout],
-        };
-
-        graphicsPipeline = new GraphicsPipeline(GraphicsDevice, ref graphicsPipelineDesc);
+        graphicsPipeline = new GraphicsPipeline(GraphicsDevice,
+            vertexShader: vertexShader, pixelShader: pixelShader,
+            descriptorLayouts: [descriptorLayout]);
 
         // Creates an array of the vertices
         var vertices = new Vertex[4]

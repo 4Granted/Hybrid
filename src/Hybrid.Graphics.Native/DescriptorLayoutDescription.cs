@@ -42,7 +42,7 @@ public struct DescriptorLayoutDescription : IDistinct<DescriptorLayoutDescriptio
 
     /// <inheritdoc/>
     public readonly bool Equals(DescriptorLayoutDescription other)
-        => Utilities.CompareDistinct(in other.Elements, in Elements);
+        => CommonExtensions.CompareDistinct(in other.Elements, in Elements);
 
     /// <inheritdoc/>
     public readonly override bool Equals([NotNullWhen(true)] object? obj)
